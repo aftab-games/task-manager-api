@@ -1,4 +1,7 @@
+using TaskManagerApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton<ITaskService, TaskService>();
 
 // Add services to the container.
 
