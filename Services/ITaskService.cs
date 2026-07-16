@@ -4,7 +4,10 @@ namespace TaskManagerApi.Services
 {
     public interface ITaskService
     {
-        List<TaskItem> GetAll();
-        TaskItem? GetById(int id);
+        Task<TaskItem> CreateAsync(TaskItem task);
+        Task<List<TaskItem>> GetAllAsync();
+        Task<TaskItem?> GetByIdAsync(int id);
+        Task<bool> UpdateAsync(int id, TaskItem task);
+        Task<bool> DeleteAsync(int id);
     }
 }

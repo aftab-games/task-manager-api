@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskManagerApi.Models;
 using TaskManagerApi.Services;
 
 namespace TaskManagerApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TasksController: ControllerBase
+    public class TasksController : ControllerBase
     {
         private readonly ITaskService _taskService;
 
@@ -14,18 +15,41 @@ namespace TaskManagerApi.Controllers
             _taskService = taskService;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpPost]
+        public async Task<IActionResult> Create(TaskItem task)
         {
-            return Ok(_taskService.GetAll());
+            var created = await _taskService.CreateAsync(task);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _taskService.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var task = _taskService.GetById(id);
+            var task = await _taskService.GetByIdAsync(id);
             if (task is null) return NotFound();
             return Ok(task);
+        }
+
+        [HttpPut ("{id}")]
+        public async Task<IActionResult> Update(int id, TaskItem task)
+        {
+            var success = await _taskService.UpdateAsync(id, task);
+            if (!success) return NotFound();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _taskService.DeleteAsync(id);
+            if (!success) return NotFound();
+            return NoContent();
         }
     }
 }
