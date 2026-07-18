@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TaskManagerApi.Models;
 using TaskManagerApi.Services;
+using TaskManagerApi.DTOs;
 
 namespace TaskManagerApi.Controllers
 {
@@ -21,8 +22,9 @@ namespace TaskManagerApi.Controllers
         private int GetUserId() => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub")!);
 
         [HttpPost]
-        public async Task<IActionResult> Create(TaskItem task)
+        public async Task<IActionResult> Create(CreateTaskDto dto)
         {
+            var task = new TaskItem { Title = dto.Title };
             var created = await _taskService.CreateAsync(task, GetUserId());
             return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
@@ -42,8 +44,9 @@ namespace TaskManagerApi.Controllers
         }
 
         [HttpPut ("{id}")]
-        public async Task<IActionResult> Update(int id, TaskItem task)
+        public async Task<IActionResult> Update(int id, UpdateTaskDto dto)
         {
+            var task = new TaskItem { Title = dto.Title, IsCompleted = dto.IsCompleted };
             var success = await _taskService.UpdateAsync(id, task, GetUserId());
             if (!success) return NotFound();
             return NoContent();
