@@ -12,7 +12,7 @@ using TaskManagerApi.Data;
 namespace TaskManagerApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260716042928_InitialCreate")]
+    [Migration("20260718065106_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -43,9 +43,46 @@ namespace TaskManagerApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Tasks");
+                });
+
+            modelBuilder.Entity("TaskManagerApi.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("TaskManagerApi.Models.TaskItem", b =>
+                {
+                    b.HasOne("TaskManagerApi.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
