@@ -5,7 +5,7 @@ COPY TaskManagerApi.csproj .
 RUN dotnet restore TaskManagerApi.csproj
 
 COPY . .
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish TaskManagerApi.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
