@@ -1,11 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY TaskManagerApi/TaskManagerApi.csproj TaskManagerApi/
-RUN dotnet restore TaskManagerApi/TaskManagerApi.csproj
+COPY TaskManagerApi.csproj .
+RUN dotnet restore TaskManagerApi.csproj
 
-COPY TaskManagerApi/ TaskManagerApi/
-WORKDIR /src/TaskManagerApi
+COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final

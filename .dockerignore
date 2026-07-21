@@ -1,0 +1,6 @@
+TaskManagerApi.Tests/
+bin/
+obj/
+**/bin/
+**/obj/
+.vs/
