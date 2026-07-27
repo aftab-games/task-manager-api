@@ -1,5 +1,7 @@
 ﻿# Task Manager API
 
+![CI](https://github.com/aftab-games/task-manager-api/actions/workflows/dotnet-tests.yml/badge.svg)
+
 A production-style REST API built with ASP.NET Core 8, demonstrating clean layered architecture, secure authentication, and real-world backend engineering practices — built as a focused portfolio project to transition from Unity/game development into backend engineering.
 
 **Live demo:** [https://task-manager-api-c5qi.onrender.com/swagger/index.html](https://task-manager-api-c5qi.onrender.com/swagger/index.html)
@@ -53,6 +55,8 @@ Controller → Service (interface-based) → EF Core DbContext → PostgreSQL
 - **PostgreSQL over SQLite**: chosen specifically to match what's commonly used in production environments and listed in job requirements, over SQLite's zero-config convenience.
 - **.NET 8 (LTS) over .NET 10**: matched to available tooling at the time of building, and reflects that most production codebases run on an LTS release rather than the newest major version.
 - **`Scoped` service lifetime, not `Singleton`**: required once the service layer depends on `DbContext`, which isn't thread-safe — a deliberate lifetime choice, not a default left unexamined.
+- **Database indexes on `Tasks.UserId` and a unique index on `Users.Username`**: `UserId` is filtered on in every task query, making it the highest-value index candidate in the schema. The unique index on `Username` also enforces uniqueness at the database level — closing a race condition where two simultaneous registrations could otherwise both pass an application-level uniqueness check before either saves.
+- **Continuous Integration via GitHub Actions**: every push automatically restores, builds, and runs the full test suite in a clean environment, catching regressions before they reach the deployed app.
 
 ---
 
@@ -136,5 +140,5 @@ This project is the first in a planned sequence of backend/architecture-focused 
 ## Author
 
 **Md Aftab Uddin**
-Unity Game Developer transitioning into backend engineering — 5+ years building shipped, live products.
+Unity/Game Developer transitioning into backend engineering. 5+ years of experience developing and shipping live products.
 [LinkedIn](https://www.linkedin.com/in/aftab-games) · [Portfolio](https://aftab-games.github.io) · aftab.uddin.games@gmail.com
