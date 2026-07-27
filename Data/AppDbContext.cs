@@ -9,7 +9,15 @@ namespace TaskManagerApi.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TaskItem>().HasIndex(t => t.UserId);
+            modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+        }
+
         public DbSet<TaskItem> Tasks { get; set; }
         public DbSet<User> Users { get; set; }
+
+        
     }
 }
