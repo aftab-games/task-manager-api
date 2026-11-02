@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/aftab-games/task-manager-api/actions/workflows/dotnet-tests.yml/badge.svg)
 
-A production-style REST API built with ASP.NET Core 8, demonstrating clean layered architecture, secure authentication, and real-world backend engineering practices — built as a focused portfolio project to transition from Unity/game development into backend engineering.
+A production-style REST API built with ASP.NET Core 8, demonstrating clean layered architecture, secure authentication, and real-world backend engineering practices.
 
 **Live demo:** [https://task-manager-api-c5qi.onrender.com/swagger/index.html](https://task-manager-api-c5qi.onrender.com/swagger/index.html)
 *(Hosted on Render's free tier — the app may take 30–60 seconds to wake up on first request after inactivity.)*
