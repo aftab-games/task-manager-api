@@ -4,8 +4,8 @@
 
 A production-style REST API built with ASP.NET Core 8, demonstrating clean layered architecture, secure authentication, and real-world backend engineering practices.
 
-**Live demo:** [https://task-manager-api-c5qi.onrender.com/swagger/index.html](https://task-manager-api-c5qi.onrender.com/swagger/index.html)
-*(Hosted on Render's free tier — the app may take 30–60 seconds to wake up on first request after inactivity.)*
+<!-- **Live demo:** [https://task-manager-api-c5qi.onrender.com/swagger/index.html](https://task-manager-api-c5qi.onrender.com/swagger/index.html)
+*(Hosted on Render's free tier — the app may take 30–60 seconds to wake up on first request after inactivity.)* -->
 
 ---
 
